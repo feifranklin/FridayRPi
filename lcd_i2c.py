@@ -111,19 +111,22 @@ def main():
   # Initialise display
   lcd_init()
 
+  count = 1
   while True:
 
     # Send some test
-    lcd_string("RPiSpy         <",LCD_LINE_1)
-    lcd_string("I2C LCD        <",LCD_LINE_2)
+    lcd_string("MATTHEW CHARLES<",LCD_LINE_1)
+    lcd_string("AUSTIN         <",LCD_LINE_2)
 
-    time.sleep(3)
+    time.sleep(1)
   
     # Send some more text
+    displayStr = 'count = ' + str(count)
+    count += 1
     lcd_string(">         RPiSpy",LCD_LINE_1)
-    lcd_string(">        I2C LCD",LCD_LINE_2)
+    lcd_string(displayStr,LCD_LINE_2)
 
-    time.sleep(3)
+    time.sleep(1)
 
 if __name__ == '__main__':
 

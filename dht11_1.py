@@ -3,6 +3,7 @@ import sys
 import os
 import Adafruit_DHT
 import urllib2
+import RPi.GPIO as GPIO
 from time import sleep
 
 # Setup the pin we connect to
@@ -10,7 +11,7 @@ DHTpin = 4
 
 #Setup our API and delay
 myAPI = "insert_here_your_thingspeak_channel_key"
-myDelay = 15 #how many seconds between posting data
+myDelay = 5 #how many seconds between posting data
 
 def getSensorData():
     RHW, TW = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, DHTpin)
@@ -36,11 +37,12 @@ def main():
             #f.close()
 
             sleep(int(myDelay))
-
+        except KeyboardInterrupt:
+            GPIO.cleanup()
+            print "catch keyboard interrupt"
         except:
             print 'exiting.'
 
-        break
 
 # call main
 

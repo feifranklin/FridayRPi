@@ -1,36 +1,5 @@
 #!/usr/bin/python
 #--------------------------------------
-#    ___  ___  _ ____
-#   / _ \/ _ \(_) __/__  __ __
-#  / , _/ ___/ /\ \/ _ \/ // /
-# /_/|_/_/  /_/___/ .__/\_, /
-#                /_/   /___/
-#
-#  lcd_i2c.py
-#  LCD test script using I2C backpack.
-#  Supports 16x2 and 20x4 screens.
-#
-# Author : Matt Hawkins
-# Date   : 20/09/2015
-#
-# http://www.raspberrypi-spy.co.uk/
-#
-# Copyright 2015 Matt Hawkins
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-#--------------------------------------
 import smbus
 import time
 
@@ -114,7 +83,10 @@ def main():
   count = 1
   while True:
 
-    # Send some test
+	# ToDo: add code here to read and calculate temperatgure from DHT11
+  
+  
+	# ToDo: Modify here to change LCD text, line 1 and line2
     lcd_string("MATTHEW CHARLES<",LCD_LINE_1)
     lcd_string("AUSTIN         <",LCD_LINE_2)
 
@@ -123,6 +95,8 @@ def main():
     # Send some more text
     displayStr = 'count = ' + str(count)
     count += 1
+
+	# ToDo: Modify here to change LCD text, line 1 and line2
     lcd_string(">         RPiSpy",LCD_LINE_1)
     lcd_string(displayStr,LCD_LINE_2)
 

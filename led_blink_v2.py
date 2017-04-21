@@ -18,10 +18,14 @@ def blink(pin):
         
     return # optional
 
-
-for i in range(10):
-    print("loop: ", i)
-    blink(pinID)
-
+try:
+    for i in range(100):
+        print("loop: ", i)
+        blink(pinID)
+except KeyboardInterrupt:
+    GPIO.cleanup()
+    print "user interrupt"
+    
 # must clean up
 GPIO.cleanup()
+print "clean up"

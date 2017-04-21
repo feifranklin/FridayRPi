@@ -1,7 +1,10 @@
 #!/usr/bin/python
 #--------------------------------------
-import smbus
 import time
+import sys
+import os
+import smbus			# LCD library
+import Adafruit_DHT		# DHT11 library
 
 # Define some device parameters
 I2C_ADDR  = 0x27 # I2C device address
@@ -21,6 +24,7 @@ LCD_BACKLIGHT  = 0x08  # On
 
 ENABLE = 0b00000100 # Enable bit
 
+DHTpin = 4
 # Timing constants
 E_PULSE = 0.0005
 E_DELAY = 0.0005
@@ -74,33 +78,33 @@ def lcd_string(message,line):
   for i in range(LCD_WIDTH):
     lcd_byte(ord(message[i]),LCD_CHR)
 
+def getSensorData():
+    RHW, TW = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, DHTpin)
+    TWF = 9/5*TW+32
+    return (str(RHW), str(TW), str(TWF))
+
 def main():
   # Main program block
 
   # Initialise display
   lcd_init()
 
-  count = 1
   while True:
+    
+    # Send some test
+    lcd_string(time.strftime("%d/%m/%Y") ,LCD_LINE_1)
+    lcd_string(time.strftime("%I:%M:%S") ,LCD_LINE_2)
 
-	# ToDo: add code here to read and calculate temperatgure from DHT11
-  
-  
-	# ToDo: Modify here to change LCD text, line 1 and line2
-    lcd_string("MATTHEW CHARLES<",LCD_LINE_1)
-    lcd_string("AUSTIN         <",LCD_LINE_2)
-
-    time.sleep(1)
+    time.sleep(3)
   
     # Send some more text
-    displayStr = 'count = ' + str(count)
-    count += 1
+    RHW, TW, TWF = getSensorData()
+    str1 = "Temp:" + TW + "C," + TWF + "F"
+    str2 = "Humidity=" + RHW
+    lcd_string(str1,LCD_LINE_1)
+    lcd_string(str2,LCD_LINE_2)
 
-	# ToDo: Modify here to change LCD text, line 1 and line2
-    lcd_string(">         RPiSpy",LCD_LINE_1)
-    lcd_string(displayStr,LCD_LINE_2)
-
-    time.sleep(1)
+    time.sleep(3)
 
 if __name__ == '__main__':
 

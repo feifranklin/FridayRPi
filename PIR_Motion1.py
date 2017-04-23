@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 GPIO.setmode(GPIO.BOARD)
-PIR_PIN = 7
+PIR_PIN = 11
 GPIO.setup(PIR_PIN, GPIO.IN)
 try:
     print "checking motion (ctrl+C to exit)"
@@ -9,7 +9,6 @@ try:
     while True:
         if GPIO.input(PIR_PIN):
             print "motion!!"
-            time.sleep(3)
         else:
             print "...."        
         

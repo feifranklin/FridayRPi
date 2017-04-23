@@ -10,23 +10,19 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(ledPin, GPIO.OUT)
 GPIO.setup(motionPin, GPIO.IN)
 
-def MotionCallback(pin):
-    if GPIO.input(pin):
-        print "rising(turn on) ", GetTimeStamp()
-        GPIO.output(ledPin, True)
-    else:
-        print "falling(turn off)", GetTimeStamp()
-        GPIO.output(ledPin, False)
 
 def GetTimeStamp():
     string1 = time.strftime("%d/%m/%Y")
     string2 = time.strftime("%I:%M:%S")
     return string1+" "+string2
 
-GPIO.add_event_detect(motionPin, GPIO.BOTH, callback=MotionCallback)
 try:
     while True:
-        time.sleep(1)
+        if GPIO.input(motionPin):
+            print "motion: ", GetTimeStamp()
+            GPIO.output(ledPin, True)
+        else:
+            GPIO.output(ledPin, False) 
 except KeyboardInterrupt:
     GPIO.cleanup()
     print("done")
